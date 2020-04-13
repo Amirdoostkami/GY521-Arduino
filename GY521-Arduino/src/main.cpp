@@ -24,8 +24,7 @@ void setup()
   Wire.endTransmission(true);  //end the transmission
   delay(20);
 }
-
-void loop()
+int gy521()
 {
   // === Read acceleromter data === //
   Wire.beginTransmission(MPU);
@@ -60,15 +59,11 @@ void loop()
   gyroAngleX = gyroAngleX + GyroX * elapsedTime; // deg/s * s = deg
   gyroAngleY = gyroAngleY + GyroY * elapsedTime;
   yaw = yaw + GyroZ * elapsedTime;
-
-  //  // Complementary filter - combine acceleromter and gyro angle values
-  //  roll = 0.96 * gyroAngleX + 0.04 * accAngleX ;
-  //  pitch = 0.96 * gyroAngleY + 0.04 * accAngleY ;
-  //
-  //  // Print the values on the serial monitor
-  //  Serial.print(roll);
-  //  Serial.print("/");
-  //  Serial.print(pitch);
-  //  Serial.print("/");
-  Serial.println(yaw);
+  return(yaw);
+}
+void loop()
+{
+int yaw = gy521();
+ Serial.println(yaw);
+ delay(500);
 }
